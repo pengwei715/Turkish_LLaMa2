@@ -12,8 +12,8 @@ chinese_tokenizer_path="/app/models/merged_tokenizer_hf"
 dataset_dir="/app/data"
 data_cache="/app/temp_data_cache_dir"
 per_device_train_batch_size=1
-gradient_accumulation_steps=8
-block_size=512
+gradient_accumulation_steps=2
+block_size=64
 output_dir="/app/output_dir"
 
 deepspeed_config_file=ds_zero2_no_offload.json
@@ -51,6 +51,6 @@ torchrun --nnodes 1 --nproc_per_node 4 run_clm_pt_with_peft.py \
     --trainable ${lora_trainable} \
     --lora_dropout ${lora_dropout} \
     --torch_dtype float16 \
-    --load_in_kbits 16 \
+    --load_in_kbits 8 \
     --gradient_checkpointing \
     --ddp_find_unused_parameters False
